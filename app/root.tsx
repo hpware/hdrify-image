@@ -6,6 +6,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { useState, useEffect } from "react";
 
 import "./tailwind.css";
 
@@ -13,7 +14,56 @@ export const links: LinksFunction = () => [
   { rel: "dns-prefetch", href: "https://s3.yhw.tw" },
 ];
 
+function StartingComponent() {
+  const [showContent, setShowContent] = useState(false);
+  const sureClick = () => {
+    localStorage.setItem("userConsent", "true");
+    window.location.reload();
+  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowContent(true);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!showContent) {
+    return (
+      <div className="flex flex-col absolute inset-0 justify-center align-center items-center">
+        Loading...
+      </div>
+    );
+  }
+  return (
+    <div className="flex flex-col absolute inset-0 justify-center align-center items-center">
+      <h1 className="text-5xl text-bold text-transparent bg-gradient-to-tl from-sky-400 to-stone-400 bg-clip-text">
+        HDRfrier
+      </h1>
+      <h3 className="text-lg text-gray-300">
+        Are you sure you want to blow your friend's eyes?
+      </h3>
+      <button
+        onClick={sureClick}
+        className="bg-red-400 p-2 rounded-xl hover:bg-red-600 text-black transition-all duration-200"
+      >
+        Sure! Why not.
+      </button>
+      <span className="text-xs text-gray-500 mt-1">
+        I'm not responsible for your actions, this is for funises only.
+      </span>
+      <span className="text-xs text-gray-500 mt-1">
+        By clicking this button, everything WILL be on YOU, not the creator of
+        the platform.
+      </span>
+    </div>
+  );
+}
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [hasConsent, setHasConsent] = useState(false);
+  useEffect(() => {
+    const consent = localStorage.getItem("userConsent");
+    setHasConsent(consent === "true");
+  }, []);
   return (
     <html lang="en">
       <head>
@@ -23,7 +73,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        {hasConsent ? children : <StartingComponent />}
         <ScrollRestoration />
         <Scripts />
       </body>

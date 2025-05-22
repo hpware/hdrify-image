@@ -7,6 +7,8 @@
         "@remix-run/react": "^2.16.7",
         "@remix-run/serve": "^2.16.7",
         "isbot": "^4.1.0",
+        "lucide": "^0.511.0",
+        "lucide-react": "^0.511.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
       },
@@ -973,6 +975,10 @@
     "loose-envify": ["loose-envify@1.4.0", "", { "dependencies": { "js-tokens": "^3.0.0 || ^4.0.0" }, "bin": { "loose-envify": "cli.js" } }, "sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q=="],
 
     "lru-cache": ["lru-cache@7.18.3", "", {}, "sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA=="],
+
+    "lucide": ["lucide@0.511.0", "", {}, "sha512-3ppKPYcCJFXBloeM1H8OyIGjzINNQgsYvAYBTYOSKO45DF/5vbTQrCvwnvMDAGgDnUlI1uFxe0gJj52jdb1JAg=="],
+
+    "lucide-react": ["lucide-react@0.511.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-VK5a2ydJ7xm8GvBeKLS9mu1pVK6ucef9780JVUjw6bAjJL/QXnd4Y0p7SPeOUMC27YhzNCZvm5d/QX0Tp3rc0w=="],
 
     "markdown-extensions": ["markdown-extensions@1.1.1", "", {}, "sha512-WWC0ZuMzCyDHYCasEGs4IPvLyTGftYwh6wIEOULOF0HXcqZlhwRzrK0w2VUlxWA98xnvb/jszw4ZSkJ6ADpM6Q=="],
 
