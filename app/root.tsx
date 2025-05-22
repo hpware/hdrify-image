@@ -28,16 +28,12 @@ function StartingComponent() {
   }, []);
 
   if (!showContent) {
-    return (
-      <div className="flex flex-col absolute inset-0 justify-center align-center items-center">
-        Loading...
-      </div>
-    );
+    return;
   }
   return (
-    <div className="flex flex-col absolute inset-0 justify-center align-center items-center">
+    <div className="flex flex-col absolute inset-0 justify-center align-center items-center bg-gray-700/50 shadow-lg backdrop-blur-md">
       <h1 className="text-5xl text-bold text-transparent bg-gradient-to-tl from-sky-400 to-stone-400 bg-clip-text">
-        HDRfrier
+        HDRify your image
       </h1>
       <h3 className="text-lg text-gray-300">
         Are you sure you want to blow your friend's eyes?
@@ -73,7 +69,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {hasConsent ? children : <StartingComponent />}
+        {!hasConsent && <StartingComponent />}
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>
