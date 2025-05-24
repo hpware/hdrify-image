@@ -20,35 +20,13 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-function UploadPage() {
-  const [filefile, setFile] = useState<any>();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setFile(file);
-      console.log("File selected:", file);
-    }
-  };
-
-  const handleDragOver = (event: React.DragEvent) => {
-    event.preventDefault();
-  };
-
-  const handleDrop = (event: React.DragEvent) => {
-    event.preventDefault();
-    const file = event.dataTransfer.files?.[0];
-    if (file) {
-      setFile(file);
-      console.log("File dropped:", file);
-    }
-  };
-
-  const triggerFileInput = () => {
-    fileInputRef.current?.click();
-  };
-
+function UploadPage({
+  fileInputRef,
+  handleFileSelect,
+  triggerFileInput,
+  handleDragOver,
+  handleDrop,
+}) {
   return (
     <div className="justify-center align-center text-center">
       <h1 className="text-5xl text-bold m-1">Upload your image</h1>
@@ -77,9 +55,44 @@ function UploadPage() {
 
 export default function Index() {
   const [hasUploaded, setHasUploaded] = useState<boolean>(false);
+  const [filefile, setFile] = useState<any>();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setFile(file);
+      console.log("File selected:", file);
+    }
+  };
+
+  const handleDragOver = (event: React.DragEvent) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event: React.DragEvent) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files?.[0];
+    if (file) {
+      setFile(file);
+      console.log("File dropped:", file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
   return (
     <div className="flex flex-col h-screen items-center justify-center">
-      {hasUploaded ? null : <UploadPage />}
+      {hasUploaded ? null : (
+        <UploadPage
+          handleDrop={handleDrop}
+          handleDragOver={handleDragOver}
+          triggerFileInput={triggerFileInput}
+          handleFileSelect={handleFileSelect}
+          fileInputRef={fileInputRef}
+        />
+      )}
     </div>
   );
 }
