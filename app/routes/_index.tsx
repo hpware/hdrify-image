@@ -20,13 +20,14 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function Index() {
+function UploadPage() {
+  const [filefile, setFile] = useState<any>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Handle the file here
+      setFile(file);
       console.log("File selected:", file);
     }
   };
@@ -39,7 +40,7 @@ export default function Index() {
     event.preventDefault();
     const file = event.dataTransfer.files?.[0];
     if (file) {
-      // Handle the file here
+      setFile(file);
       console.log("File dropped:", file);
     }
   };
@@ -47,8 +48,9 @@ export default function Index() {
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
+
   return (
-    <div className="flex flex-col h-screen items-center justify-center">
+    <div className="justify-center align-center text-center">
       <h1 className="text-5xl text-bold m-1">Upload your image</h1>
       <input
         type="file"
@@ -58,18 +60,26 @@ export default function Index() {
         className="hidden"
       />
       <button
-        className="text-left"
+        className="text-left p-[200px] group shadow-xl border border-dashed hover:shadow-gray-400/50 rounded-xl transition-all duration-500"
         onClick={triggerFileInput}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
-        <div className="flex flex-col p-12 group shadow-xl border border-dashed hover:shadow-gray-400/50 rounded-xl transition-all duration-500">
+        <div className="flex flex-col ">
           <UploadIcon className="h-12 w-12 justify-center align-center text-center " />
           <span>Drag your image here</span>
           <span className="text-xs">Or click to get select your image</span>
         </div>
       </button>
-      <div className="flex flex-row flex-wrap"></div>
+    </div>
+  );
+}
+
+export default function Index() {
+  const [hasUploaded, setHasUploaded] = useState<boolean>(false);
+  return (
+    <div className="flex flex-col h-screen items-center justify-center">
+      {hasUploaded ? null : <UploadPage />}
     </div>
   );
 }
